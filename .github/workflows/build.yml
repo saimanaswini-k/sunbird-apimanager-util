@@ -52,7 +52,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            manaswini07/sunbird_apimanager_util:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USERNAME }}/sunbird_apimanager_util:${{ github.ref_name }}
 
 
       # - name: Push Docker image
