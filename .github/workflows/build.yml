@@ -1,11 +1,11 @@
-name: Test and Sonar
+name: Build and Push Docker Image
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  run_test_cases:
+  build:
     runs-on: ubuntu-20.04
 
     steps:
@@ -29,6 +29,26 @@ jobs:
         run: |
           gradle -v
           ./gradlew build
+
       - name: Upgrade Gradle for JDK 17
         run: |
           ./gradlew wrapper --gradle-version 5.0 --distribution-type all
+
+      - name: Build Docker image
+        run: |
+          docker build -t my-app:latest .
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+       - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/userorg_service:${{ github.ref_name }}
