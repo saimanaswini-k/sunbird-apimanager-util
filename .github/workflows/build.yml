@@ -29,8 +29,6 @@ jobs:
         run: |
           gradle -v
           ./gradlew build
-
       - name: Upgrade Gradle for JDK 17
         run: |
           ./gradlew wrapper --gradle-version 5.0 --distribution-type all
-      
