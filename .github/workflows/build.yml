@@ -1,8 +1,9 @@
 name: Build and Push Docker Image
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -43,4 +44,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ vars.DOCKERHUB_USERNAME }}/userorg_service:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USERNAME }}/sunbird_apimanager_util:${{ github.ref_name }}
