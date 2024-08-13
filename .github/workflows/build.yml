@@ -55,6 +55,6 @@ jobs:
 
       - name: Run SonarQube analysis
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         run: |
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
           ./gradlew sonarqube -Dsonar.organization=saimanaswini-k-1 -Dsonar.projectKey=saimanaswini-k_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml
