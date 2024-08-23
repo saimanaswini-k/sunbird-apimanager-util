@@ -5,8 +5,12 @@ on:
     tags:
       - '*'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  run_test_cases:
+  Build-and-push-image:
     runs-on: ubuntu-latest
 
     steps:
